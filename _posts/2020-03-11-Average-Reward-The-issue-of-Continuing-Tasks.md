@@ -38,7 +38,7 @@ We have a sequence of episodes that has no beginning or end, and no way to clear
 
 Since we have no start point or end point, and since there is no clear line in between episodes, using discounting is not possible. Well it actually is possible. But it is not needed. Actually using $$\gamma = 0$$ will give the same results as any other one. That's because the discounted rewards are proportional to average reward. That's why instead we will only use average reward. Here I will put the proof that both will results in the same order (discounted and without discounting):
 
-<img src="img/blogImages/avgReward/discounting_proof.jpg">
+<img src="/img/blogImages/avgReward/discounting_proof.jpg">
 
 The main issue with discounting in the approximation cases is that, since we have states depending on the same features, we do not have the **policy improvement theorem** anymore. Which was stating that we can get the optimal policy, just by changing all the action selections to the optimal ones for each state. Since we could choose the probabilities for one state without effecting the others it was pretty easy to handle. Now that we lost that property there is no guaranteed improvement over policy. 
 
@@ -110,7 +110,7 @@ $$
 $$
 and we will use another step size parameter $$\beta$$ to update the average reward value. Here is the pseudocode:
 
-<img src="img/blogImages/avgReward/sarsa_differential_pseudo.jpg">
+<img src="/img/blogImages/avgReward/sarsa_differential_pseudo.jpg">
 
 And here is my implementation of it, which does not require much explanation I assume:
 
@@ -133,7 +133,7 @@ It is basically almost the same with the previous version. We are first checking
 
 Again we run an experiment using the same settings as before which results in a high varience learning, thought it does learn which is the point here right now 😄.
 
-<img src="img/blogImages/avgReward/sarsa_differential_figure.jpg">
+<img src="/img/blogImages/avgReward/sarsa_differential_figure.jpg">
 
 I have a blog series on RL algorithms that you can [check out](https://bedirt.github.io/tags/#betterrl-series). Also you can check [BetterRL](https://github.com/BedirT/BetterRL) where I share raw python RL code for both environments and algorithms. Any comments are appreciated!
 
