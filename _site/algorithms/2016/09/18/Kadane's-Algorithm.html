@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<!--
+    So Simple Jekyll Theme 3.2.0
+    Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+    Free for personal and commercial use under the MIT license
+    https://github.com/mmistakes/so-simple-theme/blob/master/LICENSE
+-->
+<html lang="en-US" class="no-js">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  
+
+  
+    
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Kadane’s Algorithm | Bedir Tapkan</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Kadane’s Algorithm" />
+<meta name="author" content="M Bedir Tapkan" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="What we will learn today is, how to find the sum of maximum of the subarrays, in optimal solution. First, let’s clarify the goal a bit." />
+<meta property="og:description" content="What we will learn today is, how to find the sum of maximum of the subarrays, in optimal solution. First, let’s clarify the goal a bit." />
+<link rel="canonical" href="http://localhost:4000/algorithms/2016/09/18/Kadane's-Algorithm.html" />
+<meta property="og:url" content="http://localhost:4000/algorithms/2016/09/18/Kadane's-Algorithm.html" />
+<meta property="og:site_name" content="Bedir Tapkan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-09-18T14:00:00-06:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Kadane’s Algorithm" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:creator" content="@M Bedir Tapkan" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","author":{"@type":"Person","name":"M Bedir Tapkan"},"url":"http://localhost:4000/algorithms/2016/09/18/Kadane's-Algorithm.html","headline":"Kadane’s Algorithm","dateModified":"2016-09-18T14:00:00-06:00","datePublished":"2016-09-18T14:00:00-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/algorithms/2016/09/18/Kadane's-Algorithm.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/img/logo.png"},"name":"M Bedir Tapkan"},"description":"What we will learn today is, how to find the sum of maximum of the subarrays, in optimal solution. First, let’s clarify the goal a bit.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+  <script>
+    /* Cut the mustard */
+    if ( 'querySelector' in document && 'addEventListener' in window ) {
+      document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + 'js';
+    }
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/skins/default.css">
+  
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,700,700i|Lora:400,400i,700,700i">
+  <link rel="alternate" type="application/atom+xml" title="Bedir Tapkan" href="/atom.xml">
+<!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+</head>
+
+
+  <body class="layout--post  kadane-s-algorithm">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#primary-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+  <div class="navigation-wrapper">
+    <a href="#menu-toggle" id="menu-toggle">Menu</a>
+    <nav id="primary-nav" class="site-nav animated drop">
+      <ul><li><a href="/posts/">Posts</a></li><li><a href="/categories/">Categories</a></li><li><a href="/tags/">Tags</a></li><li><a href="/search/">Search</a></li></ul>
+    </nav>
+  </div><!-- /.navigation-wrapper -->
+
+
+    <header class="masthead">
+  <div class="wrap">
+    
+      <a href="/" class="site-logo" rel="home" title="Bedir Tapkan">
+        <img src="/img/logo.png" class="site-logo-img animated fadeInDown" alt="Bedir Tapkan">
+      </a>
+    
+    
+    
+      
+        <div class="site-title animated fadeIn"><a href="/">Bedir Tapkan</a></div>
+      
+      <p class="site-description animated fadeIn" itemprop="description">Nothing fancy, a simple blog from a simple RL student</p>
+    
+  </div>
+</header><!-- /.masthead -->
+
+
+    <main id="main" class="main-content" aria-label="Content">
+  <article class="h-entry">
+    
+
+    <div class="page-wrapper">
+      <header class="page-header">
+        
+        
+          <h1 id="page-title" class="page-title p-name">Kadane’s Algorithm
+</h1>
+        
+      </header>
+
+      <div class="page-sidebar">
+        <div class="page-author h-card p-author"><img src="/img/profile.png" class="author-avatar u-photo" alt="M Bedir Tapkan"><div class="author-info"><div class="author-name">
+        <span class="p-name">M Bedir Tapkan</span>
+      </div><ul class="author-links"><li class="author-link">
+            <a class="u-url" rel="me" href="https://github.com/bedirt"><i class="fab fa-github-square fa-lg" title="GitHub"></i></a>
+          </li><li class="author-link">
+            <a class="u-url" rel="me" href="https://www.linkedin.com/in/bedirtapkan/"><i class="fab fa-linkedin fa-lg" title="LinkedIn"></i></a>
+          </li></ul>
+
+<span class="read-time">3 min read</span>
+
+    <time class="page-date dt-published" datetime="2016-09-18T14:00:00-06:00"><a class="u-url" href="">September 18, 2016</a>
+</time>
+
+  </div>
+</div>
+
+        
+  <h3 class="page-taxonomies-title">Categories</h3>
+  
+  <ul class="page-taxonomies"><li class="page-taxonomy"><a class="p-category" href="/categories/#algorithms" title="Pages filed under Algorithms">Algorithms</a></li>
+  </ul>
+
+
+        
+  <h3 class="page-taxonomies-title">Tags</h3>
+  
+  <ul class="page-taxonomies"><li class="page-taxonomy"><a href="/tags/#competitive-programming" title="Pages tagged Competitive programming" rel="tag">Competitive programming</a></li>
+  </ul>
+
+
+      </div>
+
+      <div class="page-content">
+        <div class="e-content">
+          <p>What we will learn today is, how to find the sum of maximum of the subarrays, in optimal solution. First, let’s clarify the goal a bit.</p>
+
+<!--more-->
+
+<p><img src="/img/blogImages/kadane/kadane.png" /></p>
+
+<p>What is subarray? Subarray is an array that is included in the bigger array. So if we have an array that has 7 elements in it. What we have is elements that have indexes of: 0, 1, 2, 3, 4, 5, 6 . A subarray is smaller array inside of this big array. So for example 1, 2, 3  or 4, 5 are subarrays. But 1, 3 is not a subarray because the subarray should be contiguous. So our task is to find the largest contiguous array in our big array.</p>
+
+<p><img src="/img/blogImages/kadane/not_subarray.jpg" /></p>
+
+<p>Since we clarify our objective let’s look at the solutions we have. First let’s see what will be the brute force solution since that will be the first one which comes to mind. What we would do is, we would start from 0 index and hold it, check every elements before that index and keep the largest one. So if we have [3, 5, 7, 9] in the array. We would first check the 3. We would see that it is the largest subarray since there is none other than that. And than we would check the index 1 -&gt; 5, we have 5 and 5 + 3 = 8. The bigger one is 8 so we keep 8. Than we go for 2nd index -&gt; 7. We have 7, 7+5, 7+5+3 so that biggest one will be 7+5+3 which is 15, we keep it. Then next one : index 3 -&gt; 9. We have 9, 9+7, 9+7+5, 9+7+5+3. Largest one will be 9+7+5+3 = 24. So we compare the ones we found as sum of subarrays and the greatest one will be 24, the last one we checked, that’s because we have no negative elements in the array. Anyways that would be the brute force solution and still a smart one. But the time complexity would be O(n^2). Since we take the index and check every others that we can combine with this index. Let me visualize this one:</p>
+
+<p><img src="/img/blogImages/kadane/bruteForce.jpg" /></p>
+
+<p>OK, we got this part. So we got the question, now what is the optimal solution for this problem. What is this guy , <a href="https://en.wikipedia.org/wiki/Joseph_Born_Kadane">Kadane</a> , found. Here is the algorithm then. This algorithm is dynamic, which means we will approach the result using the ones we find before. OK, this guy teaches us a way that has complexity O(n), linear time.</p>
+
+<p>Let’s go with an example so it will be more clear. Our array is [5, -2, -4, 4, 4]. Kadane says that in each iteration we have only two options to get the max subarray:</p>
+
+<ol>
+  <li>It can be only itself</li>
+  <li>It can be itself combined with the maximum subarray that previous index has.</li>
+</ol>
+
+<p>Man, this is a smart solution. OK, what he says is let’s say we calculated the sum of maximum subarrays until index 1 which has value -2. For the sake of understanding let’s calculate with brute force. We have -2 and -2+5. The greater one is -2+5 = 3. So let’s proceed. This time let’s use Kadane’s Algorithm for calculating the 3rd step. What are the options:</p>
+
+<ol>
+  <li>It can be only itself (We have -4 as the 2nd indexed value so = <strong>-4</strong>)</li>
+  <li>It can be itself combined with the maximum subarray that previous index has. (We have 3 as 1st index’s max Subarray sum, so = <strong>3-4</strong> = <strong>-1</strong>)</li>
+</ol>
+
+<p>So we have a -1 and -4 … -1 indeed. But is it always the second option then? Let’s see with another part of our array. Let’s proceed one more step. Don’t forget that we have -1 as our current max. 3rd index -&gt;</p>
+
+<ol>
+  <li>It can be only itself (We have 4 as the value = <strong>4</strong>)</li>
+  <li>It can be itself combined with the maximum subarray that previous index has. (We have -1 as the previous index’s maximum -&gt; <strong>-1+4=3</strong>)</li>
+</ol>
+
+<p>Now we approached the first option, 4 &gt; 3 so we will keep 4 instead of 3. And repeat this until the end … Really that’s all.</p>
+
+<p><img src="/img/blogImages/kadane/kadaneTable.jpg" /></p>
+
+<p>Now that we understand the logic. Let’s proceed to the code. I will give pseudocode here.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kadane(Array){
+
+    generalMaximum = currentMaximum = Array[0]
+
+    for (i = 1 until n) {
+        currentMaximum = maximum of(Array[i], currentMaximum + Array[i]);
+        if(currentMaximum &gt;= generalMaximum) generalMaximum = currentMaximum;
+    }
+
+    return generalMaximum;
+
+}
+</code></pre></div></div>
+
+<p>If you are interested on learning or practicing more algorithms, you can visit our curriculum from github <a href="https://github.com/NAU-ACM/ACM-ICPC-Preparation">ACM-ICPC Preparation</a>. There are also questions and source code’s about this topic. ENJOY!</p>
+
+        </div>
+
+        
+          <div class="page-share">
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Falgorithms%2F2016%2F09%2F18%2FKadane%27s-Algorithm.html" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" class="btn btn--facebook btn--small"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i> <span>Share</span></a>
+  <a href="https://twitter.com/intent/tweet?text=Kadane%27s+Algorithm%20http%3A%2F%2Flocalhost%3A4000%2Falgorithms%2F2016%2F09%2F18%2FKadane%27s-Algorithm.html" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" class="btn btn--twitter btn--small"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i> <span>Tweet</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Falgorithms%2F2016%2F09%2F18%2FKadane%27s-Algorithm.html" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" class="btn btn--linkedin btn--small"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> <span>LinkedIn</span></a>
+  <a href="https://reddit.com/submit?title=Kadane%27s+Algorithm&url=http%3A%2F%2Flocalhost%3A4000%2Falgorithms%2F2016%2F09%2F18%2FKadane%27s-Algorithm.html" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" class="btn btn--reddit btn--small"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i> <span>Reddit</span></a>
+</div>
+
+        
+
+        
+          
+
+        
+
+        <nav class="page-pagination" role="navigation">
+  
+    <a class="page-previous" href="/machine%20learning/2016/02/27/Machine-Learning-Basics.html">
+      <h4 class="page-pagination-label">Previous</h4>
+      <span class="page-pagination-title">
+        <i class="fas fa-arrow-left"></i> Machine Learning Basics
+
+      </span>
+    </a>
+  
+
+  
+    <a class="page-next" href="/algorithms/2016/11/20/Prime-Number-Factorization.html">
+      <h4 class="page-pagination-label">Next</h4>
+      <span class="page-pagination-title">
+        Factorizing a Number
+ <i class="fas fa-arrow-right"></i>
+      </span>
+    </a>
+  
+</nav>
+
+      </div>
+    </div>
+  </article>
+</main>
+
+
+    <footer id="footer" class="site-footer">
+  <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+<div class="social-icons"><a class="social-icon" href="https://github.com/bedirt"><i class="fab fa-github-square fa-2x" title="GitHub"></i></a><a class="social-icon" href="https://www.linkedin.com/in/bedirtapkan/"><i class="fab fa-linkedin fa-2x" title="LinkedIn"></i></a></div><div class="copyright">
+    
+      <p>&copy; 2020 Bedir Tapkan. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/mmistakes/so-simple-theme" rel="nofollow">So Simple</a>.</p>
+    
+  </div>
+</footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://use.fontawesome.com/releases/v5.0.12/js/all.js"></script>
+
+
+<!-- MathJax -->
+
+<script>
+// http://docs.mathjax.org/en/latest/upgrading/v2.html
+MathJax = {
+  tex: {
+      tags: "ams"    // eq numbering options: none, ams, all
+  },
+  options: {
+    renderActions: {
+      // for mathjax 3, handle <script "math/tex"> blocks inserted by kramdown
+      find: [10, function (doc) {
+        for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+          const display = !!node.type.match(/; *mode=display/);
+          const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+          const text = document.createTextNode('');
+          node.parentNode.replaceChild(text, node);
+          math.start = {node: text, delim: '', n: 0};
+          math.end = {node: text, delim: '', n: 0};
+          doc.math.push(math);
+        }
+      }, '']
+    }
+  }
+}
+</script>
+
+<script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  </body>
+
+</html>

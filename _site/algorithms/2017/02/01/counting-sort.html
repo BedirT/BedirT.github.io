@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<!--
+    So Simple Jekyll Theme 3.2.0
+    Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+    Free for personal and commercial use under the MIT license
+    https://github.com/mmistakes/so-simple-theme/blob/master/LICENSE
+-->
+<html lang="en-US" class="no-js">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  
+
+  
+    
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Counting Sort | Bedir Tapkan</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Counting Sort" />
+<meta name="author" content="M Bedir Tapkan" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Counting sort is a nice in-place sorting algorithm that we can use for sorting instantly. (This is mostly used for competitive programming.) What I meant by this is, we can use counting sort when we are getting the input. This will not get any additional cost for us, and really good technique for using in-place sorting. I’ll get there after explaining the algorithm." />
+<meta property="og:description" content="Counting sort is a nice in-place sorting algorithm that we can use for sorting instantly. (This is mostly used for competitive programming.) What I meant by this is, we can use counting sort when we are getting the input. This will not get any additional cost for us, and really good technique for using in-place sorting. I’ll get there after explaining the algorithm." />
+<link rel="canonical" href="http://localhost:4000/algorithms/2017/02/01/counting-sort.html" />
+<meta property="og:url" content="http://localhost:4000/algorithms/2017/02/01/counting-sort.html" />
+<meta property="og:site_name" content="Bedir Tapkan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-02-01T15:00:00-07:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Counting Sort" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:creator" content="@M Bedir Tapkan" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","author":{"@type":"Person","name":"M Bedir Tapkan"},"url":"http://localhost:4000/algorithms/2017/02/01/counting-sort.html","headline":"Counting Sort","dateModified":"2017-02-01T15:00:00-07:00","datePublished":"2017-02-01T15:00:00-07:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/algorithms/2017/02/01/counting-sort.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/img/logo.png"},"name":"M Bedir Tapkan"},"description":"Counting sort is a nice in-place sorting algorithm that we can use for sorting instantly. (This is mostly used for competitive programming.) What I meant by this is, we can use counting sort when we are getting the input. This will not get any additional cost for us, and really good technique for using in-place sorting. I’ll get there after explaining the algorithm.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+  <script>
+    /* Cut the mustard */
+    if ( 'querySelector' in document && 'addEventListener' in window ) {
+      document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + 'js';
+    }
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/skins/default.css">
+  
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,700,700i|Lora:400,400i,700,700i">
+  <link rel="alternate" type="application/atom+xml" title="Bedir Tapkan" href="/atom.xml">
+<!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+</head>
+
+
+  <body class="layout--post  counting-sort">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#primary-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+  <div class="navigation-wrapper">
+    <a href="#menu-toggle" id="menu-toggle">Menu</a>
+    <nav id="primary-nav" class="site-nav animated drop">
+      <ul><li><a href="/posts/">Posts</a></li><li><a href="/categories/">Categories</a></li><li><a href="/tags/">Tags</a></li><li><a href="/search/">Search</a></li></ul>
+    </nav>
+  </div><!-- /.navigation-wrapper -->
+
+
+    <header class="masthead">
+  <div class="wrap">
+    
+      <a href="/" class="site-logo" rel="home" title="Bedir Tapkan">
+        <img src="/img/logo.png" class="site-logo-img animated fadeInDown" alt="Bedir Tapkan">
+      </a>
+    
+    
+    
+      
+        <div class="site-title animated fadeIn"><a href="/">Bedir Tapkan</a></div>
+      
+      <p class="site-description animated fadeIn" itemprop="description">Nothing fancy, a simple blog from a simple RL student</p>
+    
+  </div>
+</header><!-- /.masthead -->
+
+
+    <main id="main" class="main-content" aria-label="Content">
+  <article class="h-entry">
+    
+
+    <div class="page-wrapper">
+      <header class="page-header">
+        
+        
+          <h1 id="page-title" class="page-title p-name">Counting Sort
+</h1>
+        
+      </header>
+
+      <div class="page-sidebar">
+        <div class="page-author h-card p-author"><img src="/img/profile.png" class="author-avatar u-photo" alt="M Bedir Tapkan"><div class="author-info"><div class="author-name">
+        <span class="p-name">M Bedir Tapkan</span>
+      </div><ul class="author-links"><li class="author-link">
+            <a class="u-url" rel="me" href="https://github.com/bedirt"><i class="fab fa-github-square fa-lg" title="GitHub"></i></a>
+          </li><li class="author-link">
+            <a class="u-url" rel="me" href="https://www.linkedin.com/in/bedirtapkan/"><i class="fab fa-linkedin fa-lg" title="LinkedIn"></i></a>
+          </li></ul>
+
+<span class="read-time">3 min read</span>
+
+    <time class="page-date dt-published" datetime="2017-02-01T15:00:00-07:00"><a class="u-url" href="">February 1, 2017</a>
+</time>
+
+  </div>
+</div>
+
+        
+  <h3 class="page-taxonomies-title">Categories</h3>
+  
+  <ul class="page-taxonomies"><li class="page-taxonomy"><a class="p-category" href="/categories/#algorithms" title="Pages filed under Algorithms">Algorithms</a></li>
+  </ul>
+
+
+        
+  <h3 class="page-taxonomies-title">Tags</h3>
+  
+  <ul class="page-taxonomies"><li class="page-taxonomy"><a href="/tags/#competitive-programming" title="Pages tagged Competitive programming" rel="tag">Competitive programming</a></li>
+  </ul>
+
+
+      </div>
+
+      <div class="page-content">
+        <div class="e-content">
+          <p>Counting sort is a nice in-place sorting algorithm that we can use for sorting instantly. (This is mostly used for competitive programming.) What I meant by this is, we can use counting sort when we are getting the input. This will not get any additional cost for us, and really good technique for using in-place sorting. I’ll get there after explaining the algorithm.</p>
+
+<!--more-->
+
+<p><img src="/img/blogImages/counting_sort.png" /></p>
+
+<h3 id="complexity-">Complexity ?</h3>
+<hr />
+
+<p>Let me tell you the complexity if you are wondering, but I will explain “why” after the algorithm itself. <strong>O(n+k)</strong> : n , is size of the array that we will sort and k is the maximum element we have.</p>
+
+<h3 id="algorithm">Algorithm</h3>
+<hr />
+
+<p>OK. Let’s think of an array. For the sake of simplicity, let’s make it short…</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      myArray = [2, 3, 7, 4, 3, 9]
+</code></pre></div></div>
+
+<p>We have an array -unsorted- , minimum number is <strong>2</strong>, maximum is <strong>9</strong> and we have <strong>6</strong> elements in the array. Alright so let’s think of one more array. Which is from 0 (array starting point) to our maximum number (9) and all the values are initially <strong>0</strong>.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      INDEXES    0  1  2  3  4  5  6  7  8  9
+weAreCounting = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+</code></pre></div></div>
+
+<p><strong>ATTENTION!</strong> We are going to iterate over first array one by one, and we will increment the values that we have (i.e. for first step it is myArray[0] which is 2 so go to weAreCounting array and increment [2] by 1):</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>for i in myArray:
+    weAreCounting[i] += 1
+</code></pre></div></div>
+
+<p>NOW WHAT WE HAVE AT THE END OF THIS LOOP?</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      INDEXES    0  1  2  3  4  5  6  7  8  9
+weAreCounting = [0, 0, 1, 2, 1, 0, 0, 1, 0, 1]
+</code></pre></div></div>
+
+<p>So weAreCounting array basically shows us how many of these numbers we do have (i.e. we have 2 threes so weAreCounting[3] = 2).</p>
+
+<p>This part is how you have all the items counted. Now we can use this as sorted array (with iterating over it) or we can have our new array that will have the sorted array directly. For the second version:</p>
+
+<p>My logic will be to use same array before (myArray) so that it will be more efficient (space-wise).</p>
+
+<p>So I iterate thorough weAreCounting and if the number is bigger than 0 I will add it into myArray. That is all of the logic.</p>
+
+<h3 id="code">Code</h3>
+<hr />
+
+<p>Here is the c++ code, as simplified as possible. ENJOY!</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">countingSort</span> <span class="p">(</span><span class="kt">int</span> <span class="o">*</span> <span class="n">arr</span><span class="p">)</span> <span class="p">{</span>
+    
+    <span class="kt">int</span> <span class="n">countingArray</span><span class="p">[</span><span class="n">MAX_NUM</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+    
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">ARRAY_SIZE</span> <span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">countingArray</span><span class="p">[</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">++</span><span class="p">;</span>
+    
+    <span class="kt">int</span> <span class="n">output_Index</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">MAX_NUM</span> <span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="k">while</span> <span class="p">(</span> <span class="n">countingArray</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">--</span> <span class="p">)</span> <span class="c1">// Process will continue until the elements reach to 0</span>
+            <span class="n">arr</span><span class="p">[</span><span class="n">output_Index</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span> <span class="c1">// PS: Incrementing will be after the line_process</span>
+        <span class="c1">// Instead of these two lines we could use memset function too...</span>
+    
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>And here is python3.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">countingSort</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+    <span class="n">countingArray</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">arr</span><span class="p">:</span>
+        <span class="n">countingArray</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    
+    <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">countingArray</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+            <span class="n">countingArray</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
+    
+    <span class="k">return</span> <span class="n">arr</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">countingSort</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span> <span class="p">,</span><span class="mi">5</span> <span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+</code></pre></div></div>
+
+<p>If you check the complexity in the code, you will see that we have two loops, one is doing n operation (going through the array that we will sort). Second loop is doing k operation (which is the maximum number that we have in the array that we will sort). So time complexity will be O(n+k).</p>
+
+<p>The space complexity: we have two arrays (we could have 3 but we decrease it to 3 because we used the one at the beginig two times. Since at the end we will not going to need that one.) one is size of n and one is size of k so our complexity will be O(n+k).</p>
+
+<p>Now I suggest you to go to the link below, and try to solve the questions in Week 3/ Counting Sort section. So that you will have full understanding about this question. If you like the concept of it you can star or watch out repository as well. Have a great one!</p>
+
+<p><a href="https://github.com/NAU-ACM/ACM-ICPC-Preparation">You can also find other algorithms explained and full code samples about this one here</a> (Check Week 3)</p>
+
+        </div>
+
+        
+          <div class="page-share">
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Falgorithms%2F2017%2F02%2F01%2Fcounting-sort.html" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" class="btn btn--facebook btn--small"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i> <span>Share</span></a>
+  <a href="https://twitter.com/intent/tweet?text=Counting+Sort%20http%3A%2F%2Flocalhost%3A4000%2Falgorithms%2F2017%2F02%2F01%2Fcounting-sort.html" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" class="btn btn--twitter btn--small"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i> <span>Tweet</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Falgorithms%2F2017%2F02%2F01%2Fcounting-sort.html" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" class="btn btn--linkedin btn--small"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> <span>LinkedIn</span></a>
+  <a href="https://reddit.com/submit?title=Counting+Sort&url=http%3A%2F%2Flocalhost%3A4000%2Falgorithms%2F2017%2F02%2F01%2Fcounting-sort.html" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" class="btn btn--reddit btn--small"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i> <span>Reddit</span></a>
+</div>
+
+        
+
+        
+          
+
+        
+
+        <nav class="page-pagination" role="navigation">
+  
+    <a class="page-previous" href="/algorithms/2016/11/20/Prime-Number-Factorization.html">
+      <h4 class="page-pagination-label">Previous</h4>
+      <span class="page-pagination-title">
+        <i class="fas fa-arrow-left"></i> Factorizing a Number
+
+      </span>
+    </a>
+  
+
+  
+    <a class="page-next" href="/reinforcement%20learning/control%20methods/2020/03/10/Semi-Gradient-Control.html">
+      <h4 class="page-pagination-label">Next</h4>
+      <span class="page-pagination-title">
+        Semi-Gradient Control Methods
+ <i class="fas fa-arrow-right"></i>
+      </span>
+    </a>
+  
+</nav>
+
+      </div>
+    </div>
+  </article>
+</main>
+
+
+    <footer id="footer" class="site-footer">
+  <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+<div class="social-icons"><a class="social-icon" href="https://github.com/bedirt"><i class="fab fa-github-square fa-2x" title="GitHub"></i></a><a class="social-icon" href="https://www.linkedin.com/in/bedirtapkan/"><i class="fab fa-linkedin fa-2x" title="LinkedIn"></i></a></div><div class="copyright">
+    
+      <p>&copy; 2020 Bedir Tapkan. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/mmistakes/so-simple-theme" rel="nofollow">So Simple</a>.</p>
+    
+  </div>
+</footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://use.fontawesome.com/releases/v5.0.12/js/all.js"></script>
+
+
+<!-- MathJax -->
+
+<script>
+// http://docs.mathjax.org/en/latest/upgrading/v2.html
+MathJax = {
+  tex: {
+      tags: "ams"    // eq numbering options: none, ams, all
+  },
+  options: {
+    renderActions: {
+      // for mathjax 3, handle <script "math/tex"> blocks inserted by kramdown
+      find: [10, function (doc) {
+        for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+          const display = !!node.type.match(/; *mode=display/);
+          const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+          const text = document.createTextNode('');
+          node.parentNode.replaceChild(text, node);
+          math.start = {node: text, delim: '', n: 0};
+          math.end = {node: text, delim: '', n: 0};
+          doc.math.push(math);
+        }
+      }, '']
+    }
+  }
+}
+</script>
+
+<script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  </body>
+
+</html>

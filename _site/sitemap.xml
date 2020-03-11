@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>http://localhost:4000/machine%20learning/2016/02/27/Machine-Learning-Basics.html</loc>
+<lastmod>2016-02-27T18:41:00-07:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/algorithms/2016/09/18/Kadane's-Algorithm.html</loc>
+<lastmod>2016-09-18T14:00:00-06:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/algorithms/2016/11/20/Prime-Number-Factorization.html</loc>
+<lastmod>2016-11-20T17:00:00-07:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/algorithms/2017/02/01/counting-sort.html</loc>
+<lastmod>2017-02-01T15:00:00-07:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/reinforcement%20learning/control%20methods/2020/03/10/Semi-Gradient-Control.html</loc>
+<lastmod>2020-03-10T19:31:00-06:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/categories/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/posts/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/tags/</loc>
+</url>
+</urlset>

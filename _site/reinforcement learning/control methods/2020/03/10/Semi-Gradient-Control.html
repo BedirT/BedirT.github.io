@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<!--
+    So Simple Jekyll Theme 3.2.0
+    Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+    Free for personal and commercial use under the MIT license
+    https://github.com/mmistakes/so-simple-theme/blob/master/LICENSE
+-->
+<html lang="en-US" class="no-js">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  
+
+  
+    
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Semi-Gradient Control Methods | Bedir Tapkan</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Semi-Gradient Control Methods" />
+<meta name="author" content="M Bedir Tapkan" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I will be going over how Semi-Gradient SARSA works, first theory and then raw linear python implementation. I love learning things in the simplest form possible, without a lot of fancy stuff hidden in between. Well, if you are like me I believe you will enjoy this series for BetterRL." />
+<meta property="og:description" content="I will be going over how Semi-Gradient SARSA works, first theory and then raw linear python implementation. I love learning things in the simplest form possible, without a lot of fancy stuff hidden in between. Well, if you are like me I believe you will enjoy this series for BetterRL." />
+<link rel="canonical" href="http://localhost:4000/reinforcement%20learning/control%20methods/2020/03/10/Semi-Gradient-Control.html" />
+<meta property="og:url" content="http://localhost:4000/reinforcement%20learning/control%20methods/2020/03/10/Semi-Gradient-Control.html" />
+<meta property="og:site_name" content="Bedir Tapkan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-03-10T19:31:00-06:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Semi-Gradient Control Methods" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:creator" content="@M Bedir Tapkan" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","author":{"@type":"Person","name":"M Bedir Tapkan"},"url":"http://localhost:4000/reinforcement%20learning/control%20methods/2020/03/10/Semi-Gradient-Control.html","headline":"Semi-Gradient Control Methods","dateModified":"2020-03-10T19:31:00-06:00","datePublished":"2020-03-10T19:31:00-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/reinforcement%20learning/control%20methods/2020/03/10/Semi-Gradient-Control.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/img/logo.png"},"name":"M Bedir Tapkan"},"description":"I will be going over how Semi-Gradient SARSA works, first theory and then raw linear python implementation. I love learning things in the simplest form possible, without a lot of fancy stuff hidden in between. Well, if you are like me I believe you will enjoy this series for BetterRL.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+  <script>
+    /* Cut the mustard */
+    if ( 'querySelector' in document && 'addEventListener' in window ) {
+      document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + 'js';
+    }
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/skins/default.css">
+  
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,700,700i|Lora:400,400i,700,700i">
+  <link rel="alternate" type="application/atom+xml" title="Bedir Tapkan" href="/atom.xml">
+<!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+</head>
+
+
+  <body class="layout--post  semi-gradient-control-methods">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#primary-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+  <div class="navigation-wrapper">
+    <a href="#menu-toggle" id="menu-toggle">Menu</a>
+    <nav id="primary-nav" class="site-nav animated drop">
+      <ul><li><a href="/posts/">Posts</a></li><li><a href="/categories/">Categories</a></li><li><a href="/tags/">Tags</a></li><li><a href="/search/">Search</a></li></ul>
+    </nav>
+  </div><!-- /.navigation-wrapper -->
+
+
+    <header class="masthead">
+  <div class="wrap">
+    
+      <a href="/" class="site-logo" rel="home" title="Bedir Tapkan">
+        <img src="/img/logo.png" class="site-logo-img animated fadeInDown" alt="Bedir Tapkan">
+      </a>
+    
+    
+    
+      
+        <div class="site-title animated fadeIn"><a href="/">Bedir Tapkan</a></div>
+      
+      <p class="site-description animated fadeIn" itemprop="description">Nothing fancy, a simple blog from a simple RL student</p>
+    
+  </div>
+</header><!-- /.masthead -->
+
+
+    <main id="main" class="main-content" aria-label="Content">
+  <article class="h-entry">
+    
+
+    <div class="page-wrapper">
+      <header class="page-header">
+        
+        
+          <h1 id="page-title" class="page-title p-name">Semi-Gradient Control Methods
+</h1>
+        
+      </header>
+
+      <div class="page-sidebar">
+        <div class="page-author h-card p-author"><img src="/img/profile.png" class="author-avatar u-photo" alt="M Bedir Tapkan"><div class="author-info"><div class="author-name">
+        <span class="p-name">M Bedir Tapkan</span>
+      </div><ul class="author-links"><li class="author-link">
+            <a class="u-url" rel="me" href="https://github.com/bedirt"><i class="fab fa-github-square fa-lg" title="GitHub"></i></a>
+          </li><li class="author-link">
+            <a class="u-url" rel="me" href="https://www.linkedin.com/in/bedirtapkan/"><i class="fab fa-linkedin fa-lg" title="LinkedIn"></i></a>
+          </li></ul>
+
+<span class="read-time">7 min read</span>
+
+    <time class="page-date dt-published" datetime="2020-03-10T19:31:00-06:00"><a class="u-url" href="">March 10, 2020</a>
+</time>
+
+  </div>
+</div>
+
+        
+  <h3 class="page-taxonomies-title">Categories</h3>
+  
+  <ul class="page-taxonomies"><li class="page-taxonomy"><a class="p-category" href="/categories/#control-methods" title="Pages filed under Control Methods">Control Methods</a></li><li class="page-taxonomy"><a class="p-category" href="/categories/#reinforcement-learning" title="Pages filed under Reinforcement Learning">Reinforcement Learning</a></li>
+  </ul>
+
+
+        
+  <h3 class="page-taxonomies-title">Tags</h3>
+  
+  <ul class="page-taxonomies"><li class="page-taxonomy"><a href="/tags/#betterrl-series" title="Pages tagged BetterRL Series" rel="tag">BetterRL Series</a></li><li class="page-taxonomy"><a href="/tags/#sarsa" title="Pages tagged SARSA" rel="tag">SARSA</a></li>
+  </ul>
+
+
+      </div>
+
+      <div class="page-content">
+        <div class="e-content">
+          <hr />
+
+<h3 id="prerequisites">Prerequisites</h3>
+
+<ul>
+  <li>Semi-Gradient Prediction</li>
+  <li>Intro to Linear Methods</li>
+</ul>
+
+<p>If you read the prediction part for the semi gradient methods, it is pretty easy to extend what we know to the control case. We know that control is almost all the time just adding policy improvement over the prediction case. That’s exactly the case for us here for semi-gradient control methods as well.</p>
+
+<p>We already have describe and understood a formula back in prediction part (if you read it somewhere else that’s also fine), and now we want to extend our window a little.</p>
+
+<p>For prediction we were using <script type="math/tex">S_t \mapsto U_t</script> examples, now since we have action-values instead of state-values (because we will pick the best action possible), we will use examples of form <script type="math/tex">S_t, A_t \mapsto U_t</script> meaning that instead of <script type="math/tex">v_\pi(S_t)</script> we will be using estimations for <script type="math/tex">q_\pi(S_t, A_t)</script>.</p>
+
+<p>So our general update rule would be (following from the formula for prediction);</p>
+
+<script type="math/tex; mode=display">w_{t+1} = w_t + \alpha [U_t - \hat{q}(S_t, A_t, w_t)] \nabla\hat{q}(S_t, A_t, w_t)</script>
+
+<p>As we always do, you can replace <script type="math/tex">U_t</script> with any approximation method you want, so it could have been a Monte Carlo method (Though I believe this does not count as semi-gradient, because it will be a direct stochastic gradient since it does not use any bootstrapping, but the book says otherwise so I am just passing the information 😄). Therefor we can implement an <script type="math/tex">n</script>-step episodic SARSA with an infinite option, which will correspond to Monte-Carlo (We will learn a better method to do this in future posts).</p>
+
+<p>The last piece of information to add is the policy improvement part, since we are doing control, we need to update our policy and make it better as we go of course. Which won’t be hard cause we will just be using a soft approximation method, I will use the classic <script type="math/tex">\epsilon</script>-greedy policy.</p>
+
+<p>One more thing to note, which I think is pretty important, for continuous action spaces, or large discrete action spaces methods for the control part is still not clear. Meaning we don’t know what is the best way to approach yet. That is if you think of a large choices of actions, there is no good way to apply a soft approximation technique for the action selection as you can imagine.</p>
+
+<p>For the implementation, as usual we will just go linear, as it is the best way to grasp every piece of information. But first I will as usual give the pseudo-code given in the book.</p>
+
+<p><img src="/img/blogImages/sg_sarsa/sg_sarsa.png" /></p>
+
+<p>I only took the pseudocode from chapter 10.2 because we don’t really the one before, as it is only the one step version. We are interested in the general version therefor n-step.</p>
+
+<h3 id="implementation">Implementation</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature_space</span><span class="p">,</span> <span class="n">action_space</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.0001</span><span class="p">,</span> <span class="n">gamma</span> <span class="o">=</span> <span class="mf">0.99</span><span class="p">,</span> <span class="n">eps</span> <span class="o">=</span> <span class="mf">.1</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">=</span> <span class="n">gamma</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">eps</span> <span class="o">=</span> <span class="n">eps</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">feature_space</span> <span class="o">=</span> <span class="n">feature_space</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">action_space</span> <span class="o">=</span> <span class="n">action_space</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">reset_weights</span><span class="p">()</span>
+        
+<span class="k">def</span> <span class="nf">reset_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">feature_space</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">action_space</span><span class="p">)</span>        
+</code></pre></div></div>
+
+<p><strong>Initialize</strong> We start by initializing the necessary things; we need step size $\alpha$ also $\gamma$ and $\epsilon$. Other then these we need to initialize our weight vector. We will have a weight vector that is for each action concatenated after one another. So if we assume that we have 4 observations lets say [1 0 1 0], meaning weights 0 and 2 are active, and if want to update the weights for action 0, we will have [<strong>1 0 1 0</strong> 0 0 0 0 0 0 0 0] if we had 3 possible actions in total. After when we are using $\epsilon$-greedy this will make more sense.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obs</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">eps</span><span class="p">:</span>
+      <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_act</span><span class="p">(</span><span class="n">obs</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">action_space</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>Let’s move</strong> next thing is to take a step, meaning we will pick the action according to our action-values at hand. We take the observations as input, this will come from the environment, and assuming we get an array of the probabilities for each action given the observations from ` _act(obs)`. Then all we have to do is to roll the die and decide if we will choose a random action or we will choose the action that has the most value for the current time, and thats exactly what we do here (<script type="math/tex">\epsilon</script>-greedy action selection).</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">_act</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obs</span><span class="p">):</span>
+    <span class="n">q_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">action_space</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">action_space</span><span class="p">):</span>
+        <span class="n">q_vals</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">q_hat</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">q_vals</span>
+</code></pre></div></div>
+<p><strong>Best <script type="math/tex">\hat{q}</script>-value</strong> now we need to fill the function <code class="highlighter-rouge">_act(obs)</code>. Which basically will call <script type="math/tex">\hat{q}(s, a, w)</script> for each action and store them in an array and return it.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">q_hat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obs</span><span class="p">,</span> <span class="n">action</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">action</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>Continuing from there we have the <script type="math/tex">\hat{q}(s,a,w)</script> to implement. Which is just writing down the linear formula since we are implementing it linearly. Therefor <script type="math/tex">\hat{q}(s,a,w) = w^Tx(s, a)</script> where <script type="math/tex">x(s,a)</script> is the state action representation. In our case as I already mention this will just be the one hot vector, all the observations are added after one another for each action.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">_x</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obs</span><span class="p">,</span> <span class="n">action</span><span class="p">):</span>
+    <span class="n">one_hot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">)</span>
+    <span class="n">one_hot</span><span class="p">[</span><span class="n">action</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">feature_space</span><span class="p">:(</span><span class="n">action</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">feature_space</span><span class="p">]</span> <span class="o">=</span> <span class="n">obs</span>
+    <span class="k">return</span> <span class="n">one_hot</span>
+</code></pre></div></div>
+
+<p><strong>Finally</strong> <script type="math/tex">x(s, a)</script> - as I already mentioned twice 😄 we create the <script type="math/tex">x</script> in a vector that everything 0 other than the active action.</p>
+
+<p>That was the last thing for us to be able to choose the action for a given state. So let’s have a broader respective and assume that we are using the <code class="highlighter-rouge">step(obs)</code> here is how it would be like:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">action</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+<span class="n">obs</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">done</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Now we see what is left ? Update… :man_facepalming: Yeah without update there is no change basically. Which will also be the one differs for the <script type="math/tex">n</script>. Let’s remember the formula;</p>
+
+<script type="math/tex; mode=display">w_{t+1} = w_t + \alpha[R_{t+1} + \gamma R_{t+2} + \ldots + \gamma^n\hat{q}(S_{t+n},A_{t+n},w_{t}) - \hat{q}(S_{t},A_{t},w_{t})] \nabla\hat{q}(S_t, A_t, w_t)</script>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observations</span><span class="p">,</span> <span class="n">actions</span><span class="p">,</span> <span class="n">rewards</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">observations</span><span class="p">)</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">observations</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">rewards</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">actions</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rewards</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">G</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([(</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">**</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">r</span> <span class="k">for</span> <span class="n">t</span><span class="p">,</span><span class="n">r</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rewards</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])])</span>
+            <span class="n">G</span> <span class="o">+=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">**</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">))</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_q_hat</span><span class="p">(</span><span class="n">observations</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">actions</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">*</span> <span class="p">(</span><span class="n">G</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_q_hat</span><span class="p">(</span><span class="n">observations</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">actions</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="o">*</span> \
+            <span class="bp">self</span><span class="o">.</span><span class="n">_grad_q_hat</span><span class="p">(</span><span class="n">observations</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">actions</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</code></pre></div></div>
+
+<p>There is a bit of a change here, from the pseudocode I provided. Since we want a full seperation between the agent-environment-experiment we need a class system for the algorithms therefor we won’t be following what is on the pseudocode.</p>
+
+<p><strong>Update</strong> what happens here is actually not that different, since we only need <script type="math/tex">n+1</script> elements to make the update happen we won’t keep the rest of the trajectory. Whenever we use n numbered trajectory the first element becomes useless for the next update. Therefor we remove the first element from the trajectory and use the rest to make our update.</p>
+
+<p><strong>Terminal</strong> we also have a terminal state, and as can be seen in the pseudocode there are some differences that should be changed for the updates when we reach the terminal state. Logical enough, we do not have n+1 element left to complete the calculation we were doing therefor we will just use the rewards rather than <script type="math/tex">\hat{q}(s,a,w)</script> . Therefor we need another function to handle this, which we call <code class="highlighter-rouge">end()</code> in our structure;</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observations</span><span class="p">,</span> <span class="n">actions</span><span class="p">,</span> <span class="n">rewards</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">observations</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">rewards</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">actions</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+            <span class="n">G</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([(</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">**</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">r</span> <span class="k">for</span> <span class="n">t</span><span class="p">,</span><span class="n">r</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rewards</span><span class="p">)])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">*</span> <span class="p">(</span><span class="n">G</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_q_hat</span><span class="p">(</span><span class="n">observations</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">actions</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="o">*</span> \
+            <span class="bp">self</span><span class="o">.</span><span class="n">_grad_q_hat</span><span class="p">(</span><span class="n">observations</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">actions</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</code></pre></div></div>
+
+<p>Here as we can see we are not doing something too different. It is just that we are using the last elements we have left and we will remove all the elements from the trajectory while making the last updates to our weights.</p>
+
+<p>Yeah and we are almost done, exept that I didn’t show the <code class="highlighter-rouge">grad_q_hat()</code> yet, which basically gives the <script type="math/tex">\nabla\hat{q}(s,a,w)</script>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">grad_q_hat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obs</span><span class="p">,</span> <span class="n">action</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_x</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Surprise.. Yeah since we are using linear functions, <script type="math/tex">\nabla w^Tx(s, a) = x(s,a)</script>. That’s all.</p>
+
+<p>Let’s see how would be the experiment part and run the code to get some results then.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'num_of_episodes'</span> <span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+    <span class="s">'max_steps'</span> <span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+    <span class="s">'alpha'</span> <span class="p">:</span> <span class="mi">2</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="mi">14</span><span class="p">),</span>
+    <span class="s">'gamma'</span> <span class="p">:</span> <span class="mf">0.98</span><span class="p">,</span>
+    <span class="c1"># Creating the tilings
+</span>    <span class="s">'grid_size'</span> <span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="s">'tile_size'</span> <span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="s">'num_of_tiles'</span> <span class="p">:</span> <span class="mi">5</span>
+<span class="p">}</span>
+<span class="c1"># environment
+</span><span class="n">env</span> <span class="o">=</span> <span class="n">grid_world</span><span class="p">(</span><span class="n">portal</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">action_space</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">action_space</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># tile coding
+</span><span class="n">tilings</span> <span class="o">=</span> <span class="n">tile_coding</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">grid_size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="s">'num_of_tiles'</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="s">'tile_size'</span><span class="p">],</span> <span class="n">action_space</span><span class="p">)</span>
+<span class="n">state_space</span> <span class="o">=</span> <span class="n">tilings</span><span class="o">.</span><span class="n">num_of_tilings</span>
+
+<span class="c1"># Keep stats for final print and data
+</span><span class="n">episode_rewards</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s">'num_of_episodes'</span><span class="p">])</span>
+
+<span class="c1"># Agent created
+</span><span class="n">n</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="n">agent</span> <span class="o">=</span> <span class="n">SG_SARSA</span><span class="p">(</span><span class="n">state_space</span><span class="p">,</span> <span class="n">action_space</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">params</span><span class="p">[</span><span class="s">'alpha'</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="s">'gamma'</span><span class="p">])</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ep</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s">'num_of_episodes'</span><span class="p">]):</span>
+
+    <span class="n">rewards</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">observations</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">actions</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">obs</span> <span class="o">=</span> <span class="n">tilings</span><span class="o">.</span><span class="n">active_tiles</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">())</span> <span class="c1"># a x d
+</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s">'max_steps'</span><span class="p">]):</span>
+        <span class="n">action</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+        <span class="n">observations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+
+        <span class="n">obs</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">done</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+        <span class="n">obs</span> <span class="o">=</span> <span class="n">tilings</span><span class="o">.</span><span class="n">active_tiles</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+
+        <span class="n">rewards</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">reward</span><span class="p">)</span>
+        <span class="n">actions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+
+        <span class="n">score</span> <span class="o">+=</span> <span class="n">reward</span>
+
+        <span class="k">if</span> <span class="n">done</span><span class="p">:</span>
+            <span class="n">agent</span><span class="o">.</span><span class="n">end</span><span class="p">(</span><span class="n">observations</span><span class="p">,</span> <span class="n">actions</span><span class="p">,</span> <span class="n">rewards</span><span class="p">)</span>
+            <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">agent</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">observations</span><span class="p">,</span> <span class="n">actions</span><span class="p">,</span> <span class="n">rewards</span><span class="p">)</span>
+
+		<span class="n">episode_rewards</span><span class="p">[</span><span class="n">ep</span><span class="p">]</span> <span class="o">=</span> <span class="n">score</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"EP: {} -------- Return: {}      "</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="n">ep</span><span class="p">,</span> <span class="n">score</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s">"</span><span class="se">\r</span><span class="s">"</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<p>I used tile coding and the grid world environment in our library. If you want you can modify a little to use another state representation or Rich Sutton’s tile coding library, or for environment gym.</p>
+
+<p>Anyways, what we do is pretty simple if you read through, and you can ask for clarification on any point if looks weird.</p>
+
+<p>Main point here are the agent functions and how we use them, all three are used as we said, on each step we have the <code class="highlighter-rouge">agent.step()</code>, for each step we have the <code class="highlighter-rouge">update()</code> called except the terminal state. Which we will call <code class="highlighter-rouge">end()</code> instead.</p>
+
+<p>I will give only one graph as result as usual, here is 100 runs on the stochastic grid world environment.</p>
+
+<p><img src="/img/blogImages/sg_sarsa/sg_sarsa_figure.jpg" /></p>
+
+<p>If you liked this post follow <a href="https://github.com/BedirT/BetterRL">BetterRL</a>, and keep a like down below. I have a blog series on RL algorithms that you can <a href="bedirt.github.io">check out</a>. Also you can check the repo where I share raw python RL code for both environments and algorithms. Any comments are appreciated!</p>
+
+<p><a href="https://github.com/BedirT/BetterRL/blob/master/value_based/Semi_Gradient_SARSA.py">For full code</a></p>
+
+        </div>
+
+        
+          <div class="page-share">
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Freinforcement%2520learning%2Fcontrol%2520methods%2F2020%2F03%2F10%2FSemi-Gradient-Control.html" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" class="btn btn--facebook btn--small"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i> <span>Share</span></a>
+  <a href="https://twitter.com/intent/tweet?text=Semi-Gradient+Control+Methods%20http%3A%2F%2Flocalhost%3A4000%2Freinforcement%2520learning%2Fcontrol%2520methods%2F2020%2F03%2F10%2FSemi-Gradient-Control.html" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" class="btn btn--twitter btn--small"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i> <span>Tweet</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Freinforcement%2520learning%2Fcontrol%2520methods%2F2020%2F03%2F10%2FSemi-Gradient-Control.html" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" class="btn btn--linkedin btn--small"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> <span>LinkedIn</span></a>
+  <a href="https://reddit.com/submit?title=Semi-Gradient+Control+Methods&url=http%3A%2F%2Flocalhost%3A4000%2Freinforcement%2520learning%2Fcontrol%2520methods%2F2020%2F03%2F10%2FSemi-Gradient-Control.html" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" class="btn btn--reddit btn--small"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i> <span>Reddit</span></a>
+</div>
+
+        
+
+        
+          
+
+        
+
+        <nav class="page-pagination" role="navigation">
+  
+    <a class="page-previous" href="/algorithms/2017/02/01/counting-sort.html">
+      <h4 class="page-pagination-label">Previous</h4>
+      <span class="page-pagination-title">
+        <i class="fas fa-arrow-left"></i> Counting Sort
+
+      </span>
+    </a>
+  
+
+  
+</nav>
+
+      </div>
+    </div>
+  </article>
+</main>
+
+
+    <footer id="footer" class="site-footer">
+  <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+<div class="social-icons"><a class="social-icon" href="https://github.com/bedirt"><i class="fab fa-github-square fa-2x" title="GitHub"></i></a><a class="social-icon" href="https://www.linkedin.com/in/bedirtapkan/"><i class="fab fa-linkedin fa-2x" title="LinkedIn"></i></a></div><div class="copyright">
+    
+      <p>&copy; 2020 Bedir Tapkan. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/mmistakes/so-simple-theme" rel="nofollow">So Simple</a>.</p>
+    
+  </div>
+</footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://use.fontawesome.com/releases/v5.0.12/js/all.js"></script>
+
+
+<!-- MathJax -->
+
+<script>
+// http://docs.mathjax.org/en/latest/upgrading/v2.html
+MathJax = {
+  tex: {
+      tags: "ams"    // eq numbering options: none, ams, all
+  },
+  options: {
+    renderActions: {
+      // for mathjax 3, handle <script "math/tex"> blocks inserted by kramdown
+      find: [10, function (doc) {
+        for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+          const display = !!node.type.match(/; *mode=display/);
+          const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+          const text = document.createTextNode('');
+          node.parentNode.replaceChild(text, node);
+          math.start = {node: text, delim: '', n: 0};
+          math.end = {node: text, delim: '', n: 0};
+          doc.math.push(math);
+        }
+      }, '']
+    }
+  }
+}
+</script>
+
+<script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  </body>
+
+</html>

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<!--
+    So Simple Jekyll Theme 3.2.0
+    Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+    Free for personal and commercial use under the MIT license
+    https://github.com/mmistakes/so-simple-theme/blob/master/LICENSE
+-->
+<html lang="en-US" class="no-js">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  
+
+  
+    
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Factorizing a Number | Bedir Tapkan</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Factorizing a Number" />
+<meta name="author" content="M Bedir Tapkan" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Before starting- What is Prime Factorization ? What is a Prime number ? If you are curious about these please checkout this link before proceed because I will not explain them here :)" />
+<meta property="og:description" content="Before starting- What is Prime Factorization ? What is a Prime number ? If you are curious about these please checkout this link before proceed because I will not explain them here :)" />
+<link rel="canonical" href="http://localhost:4000/algorithms/2016/11/20/Prime-Number-Factorization.html" />
+<meta property="og:url" content="http://localhost:4000/algorithms/2016/11/20/Prime-Number-Factorization.html" />
+<meta property="og:site_name" content="Bedir Tapkan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-11-20T17:00:00-07:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Factorizing a Number" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:creator" content="@M Bedir Tapkan" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","author":{"@type":"Person","name":"M Bedir Tapkan"},"url":"http://localhost:4000/algorithms/2016/11/20/Prime-Number-Factorization.html","headline":"Factorizing a Number","dateModified":"2016-11-20T17:00:00-07:00","datePublished":"2016-11-20T17:00:00-07:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/algorithms/2016/11/20/Prime-Number-Factorization.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/img/logo.png"},"name":"M Bedir Tapkan"},"description":"Before starting- What is Prime Factorization ? What is a Prime number ? If you are curious about these please checkout this link before proceed because I will not explain them here :)","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+  <script>
+    /* Cut the mustard */
+    if ( 'querySelector' in document && 'addEventListener' in window ) {
+      document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + 'js';
+    }
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/skins/default.css">
+  
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,700,700i|Lora:400,400i,700,700i">
+  <link rel="alternate" type="application/atom+xml" title="Bedir Tapkan" href="/atom.xml">
+<!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+</head>
+
+
+  <body class="layout--post  factorizing-a-number">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#primary-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+  <div class="navigation-wrapper">
+    <a href="#menu-toggle" id="menu-toggle">Menu</a>
+    <nav id="primary-nav" class="site-nav animated drop">
+      <ul><li><a href="/posts/">Posts</a></li><li><a href="/categories/">Categories</a></li><li><a href="/tags/">Tags</a></li><li><a href="/search/">Search</a></li></ul>
+    </nav>
+  </div><!-- /.navigation-wrapper -->
+
+
+    <header class="masthead">
+  <div class="wrap">
+    
+      <a href="/" class="site-logo" rel="home" title="Bedir Tapkan">
+        <img src="/img/logo.png" class="site-logo-img animated fadeInDown" alt="Bedir Tapkan">
+      </a>
+    
+    
+    
+      
+        <div class="site-title animated fadeIn"><a href="/">Bedir Tapkan</a></div>
+      
+      <p class="site-description animated fadeIn" itemprop="description">Nothing fancy, a simple blog from a simple RL student</p>
+    
+  </div>
+</header><!-- /.masthead -->
+
+
+    <main id="main" class="main-content" aria-label="Content">
+  <article class="h-entry">
+    
+
+    <div class="page-wrapper">
+      <header class="page-header">
+        
+        
+          <h1 id="page-title" class="page-title p-name">Factorizing a Number
+</h1>
+        
+      </header>
+
+      <div class="page-sidebar">
+        <div class="page-author h-card p-author"><img src="/img/profile.png" class="author-avatar u-photo" alt="M Bedir Tapkan"><div class="author-info"><div class="author-name">
+        <span class="p-name">M Bedir Tapkan</span>
+      </div><ul class="author-links"><li class="author-link">
+            <a class="u-url" rel="me" href="https://github.com/bedirt"><i class="fab fa-github-square fa-lg" title="GitHub"></i></a>
+          </li><li class="author-link">
+            <a class="u-url" rel="me" href="https://www.linkedin.com/in/bedirtapkan/"><i class="fab fa-linkedin fa-lg" title="LinkedIn"></i></a>
+          </li></ul>
+
+<span class="read-time">5 min read</span>
+
+    <time class="page-date dt-published" datetime="2016-11-20T17:00:00-07:00"><a class="u-url" href="">November 20, 2016</a>
+</time>
+
+  </div>
+</div>
+
+        
+  <h3 class="page-taxonomies-title">Categories</h3>
+  
+  <ul class="page-taxonomies"><li class="page-taxonomy"><a class="p-category" href="/categories/#algorithms" title="Pages filed under Algorithms">Algorithms</a></li>
+  </ul>
+
+
+        
+  <h3 class="page-taxonomies-title">Tags</h3>
+  
+  <ul class="page-taxonomies"><li class="page-taxonomy"><a href="/tags/#competitive-programming" title="Pages tagged Competitive programming" rel="tag">Competitive programming</a></li>
+  </ul>
+
+
+      </div>
+
+      <div class="page-content">
+        <div class="e-content">
+          <p><strong>Before starting-</strong> What is Prime Factorization ? What is a Prime number ? If you are curious about these please checkout this link before proceed because I will not explain them here :)</p>
+
+<!--more-->
+
+<p><a href="https://en.wikipedia.org/wiki/Prime_number">Wikipedia - Prime Numbers</a></p>
+
+<p><img src="/img/blogImages/Efficient_Prime.jpg" /></p>
+
+<p>Since we all know what a prime number and composite number is, let’s look at our realllly simple algorithm. Actually there is nothing fancy here, we are just using simple Sieve of Eratoshenes(Hardest name to pronounce, I checked online if I am right) algorithm. By the way that topic also pre-requised for this post, but fortunetely we already have a tutorial-explanation for it. If you don’t know or confused about it in some ways please check the links below:</p>
+
+<p><a href="https://github.com/NAU-ACM/ACM-ICPC-Preparation/blob/master/Week1/Sieve-of-Eretosthenes/README.md">Our Series Blog Post about Sieve of Erothene…</a></p>
+
+<p><a href="https://github.com/NAU-ACM/ACM-ICPC-Preparation/tree/master/Week1">Also Check Here</a></p>
+
+<p>Since “WE” covered everything required, let me involve in this learning process too… Prime factorization: This is highly important topic. All your passwords , your bank accounts and stuff are protected by these numbers. Anyway that is why we actually have couple algorithms about Prime Factorization. There is a good answer on <a href="quora.com">quora.com</a> about the prime number algorithms:</p>
+
+<blockquote>
+  <p>Different algorithms get used based on how large the number is. It goes something like this:</p>
+
+  <p>Small Numbers : Use simple sieve algorithms to create list of primes and do plain factorization. Works blazingly fast for small numbers.</p>
+
+  <p>Big Numbers : Use Pollard’s rho algorithm, Shanks’ square forms factorization (Thanks to Dana Jacobsen for the pointer)</p>
+
+  <p>Less Than  10^25  : Use Lenstra elliptic curve factorization</p>
+
+  <p>Less Than  10^100  : Use Quadratic sieve</p>
+
+  <p>More Than  10^100  : Use General number field sieve</p>
+
+  <p>Currently, in the very large integer factorization arena, GNFS is the leader. It was the winner of the RSA factoring challenge of the 232 digit number</p>
+
+  <p><em>Arun Iyer</em> <a href="https://www.quora.com/Which-is-the-fastest-prime-factorization-algorithm-to-date">quora.com</a></p>
+</blockquote>
+
+<p>OK cool, we have a lot of options, although you can see that these numbers are gigantic. <script type="math/tex">10^{25}</script> ?? This was the smallest one mentioned above by the way. So we don’t really care about them, they are exist because like I said before, these numbers are extremely powerful so people need biiig ones. Since our languages supports (for C++) until <script type="math/tex">10^{19}</script> , and our tutorials are for ACM-ICPC kind programming contests, considering that these contests have time limit and %100 sure that if <script type="math/tex">10^{25}</script> will given… you probably should search for some trick in question, because we cannot compete that many operations on time.</p>
+
+<h2 id="finally-the-algorithm">Finally the Algorithm</h2>
+
+<p>Anyway after all explanation lets talk about our “small” algorithm. It really is nothing much than using Sieve algorithm. We are just going to optimize it a little bit. Let’s say we already runned our sieve function:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sieve</span><span class="p">(</span><span class="mi">10001</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Now we have an array or vector , I don’t know how you implemented so I will go with mine -&gt; you can check it out:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">primes</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">sieve</span><span class="p">(</span><span class="kt">int</span> <span class="n">size</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">bitset</span><span class="o">&lt;</span><span class="mi">10000010</span><span class="o">&gt;</span> <span class="n">was</span><span class="p">;</span> 	<span class="c1">// You can also use boolean array or vector, but this is optimized for bool (C++ is best :) )</span>
+	<span class="n">was</span><span class="p">.</span><span class="n">set</span><span class="p">();</span>        		<span class="c1">// Initilizing all bitset to true</span>
+	<span class="n">was</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">was</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>	<span class="c1">// Except 0 and 1 of course </span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> 
+  		<span class="k">if</span> <span class="p">(</span><span class="n">was</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
+  			<span class="n">primes</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+	    		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">*</span> <span class="n">i</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">size</span><span class="p">;</span> <span class="n">j</span> <span class="o">+=</span> <span class="n">i</span><span class="p">)</span> <span class="n">was</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  		<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We have a vector named primes and it has all the primes from begining(2) to size.</p>
+
+<script type="math/tex; mode=display">primes -> [ 2 , 3 , 5 , 7 , 11 , 13 , 19 , 21 , ... ]</script>
+
+<p>What will we do is we will use basic logic and check every prime number and if it can divide our number <strong>N</strong>. If it can divide , we will just put it into our new vector (If you don’t know vector you still can use list or array, depends on the language). If we can divide we will divide it, with this way we will decrement our operations. So let’s say we have <strong>18</strong> as our <strong>N</strong>. We start with first element in the <strong><em>primes</em></strong> which is <strong>2</strong>.</p>
+
+<ul>
+  <li>Is <strong>2</strong> dividing <strong>N = 18</strong> ?</li>
+</ul>
+
+<p>Yes obviously so:</p>
+
+<ul>
+  <li>Put <strong>2</strong> into our <strong>Factors</strong> vector;</li>
+</ul>
+
+<p>So -&gt;</p>
+
+<script type="math/tex; mode=display">Factors -> [ 2 ]</script>
+
+<p>And we will divide our N by 2:</p>
+
+<ul>
+  <li><strong>N = 18/2 = 9</strong></li>
+</ul>
+
+<p>Continue to check if 2 is dividing N which is not becuese <strong>N = 9</strong>. So lets pass 2 and go to 3:</p>
+
+<ul>
+  <li>Is <strong>3</strong> dividing <strong>N = 9</strong> ? Yes</li>
+  <li>Put <strong>3</strong> into our <strong>Factors</strong> vector;</li>
+</ul>
+
+<script type="math/tex; mode=display">Factors -> [ 2 , 3 ]</script>
+
+<ul>
+  <li><strong>N = 9/3 = 3</strong></li>
+  <li>Is <strong>3</strong> dividing <strong>N = 3</strong> ? Yes</li>
+  <li>Put <strong>3</strong> into our <strong>Factors</strong> vector;</li>
+</ul>
+
+<script type="math/tex; mode=display">Factors -> [ 2 , 3 , 3 ]</script>
+
+<ul>
+  <li><strong>N = 3/3 = 1</strong></li>
+  <li>Is <strong>3</strong> dividing <strong>N = 1</strong> ? Nope</li>
+  <li>Proceed to <strong>5</strong>.</li>
+</ul>
+
+<p><strong>5</strong> ? Yes we will stop here. This is the next optimization, at most we will go until <script type="math/tex">p^2 \leq N</script> (and p is my prime number that I am checking). This is what determines my complexity in this method. So I have <script type="math/tex">\sqrt{N}</script> here. This is also my number that will go into O notation -&gt; O(<script type="math/tex">\sqrt{N}</script>). (Mathematically this complexity is represented with <script type="math/tex">O(\pi(\sqrt{N})) = O(\sqrt{N}\times lnN)</script>)You can further check the code C++ implementation. I commented it so you can see what is going on in each step. After understanding the code I highly recommend you to solve questions about this topic, we have our list for this question as well, check the link at the bottom.</p>
+
+<h2 id="implementation-c">Implementation C++</h2>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">primeFactors</span><span class="p">(</span><span class="kt">int</span> <span class="n">N</span><span class="p">){</span>
+	<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">vc</span><span class="p">;</span> <span class="c1">// An empty vector for us to fill with our numbers factors.</span>
+	<span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">f</span> <span class="o">=</span> <span class="n">primes</span><span class="p">[</span><span class="n">idx</span><span class="p">];</span> <span class="c1">// f standing for FACTOR - idx is index that we will increment </span>
+	<span class="k">while</span><span class="p">(</span><span class="n">N</span> <span class="o">!=</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">N</span> <span class="o">&gt;=</span> <span class="n">f</span> <span class="o">*</span> <span class="n">f</span><span class="p">){</span>  <span class="c1">// f * f ... This is the part with sqrt(N) so the loop continues until our factor is bigger than sqrt(N)</span>
+		<span class="k">while</span><span class="p">(</span><span class="n">N</span> <span class="o">%</span> <span class="n">f</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span> 	<span class="c1">// I will continuously check if N is divisible by this prime, until it become wrong.</span>
+			<span class="n">N</span> <span class="o">/=</span> <span class="n">f</span><span class="p">;</span> 			<span class="c1">// Dividing N to my prime.</span>
+			<span class="n">vc</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">f</span><span class="p">);</span> 	<span class="c1">// adding that prime to my vector.</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">N</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">)</span> <span class="n">vc</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">N</span><span class="p">);</span> 	<span class="c1">// This case is for prime numbers itself, if the number is prime than we should add it to our vector. </span>
+							<span class="c1">// If some value, after our loop is still not equals to 1 than it is a prime itself. (because of sqrt(N))</span>
+	<span class="k">return</span> <span class="n">vc</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>We have a well designed Curriculum on Github, also the questions about this algorithm are there too, check it out here</p>
+
+<p><a href="https://github.com/NAU-ACM/ACM-ICPC-Preparation">ACM-ICPC Curriculum</a></p>
+
+<p><a href="https://github.com/NAU-ACM/ACM-ICPC-Preparation/tree/master/Week1">Week 1 - Which includes this topic</a></p>
+
+
+        </div>
+
+        
+          <div class="page-share">
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Falgorithms%2F2016%2F11%2F20%2FPrime-Number-Factorization.html" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" class="btn btn--facebook btn--small"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i> <span>Share</span></a>
+  <a href="https://twitter.com/intent/tweet?text=Factorizing+a+Number%20http%3A%2F%2Flocalhost%3A4000%2Falgorithms%2F2016%2F11%2F20%2FPrime-Number-Factorization.html" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" class="btn btn--twitter btn--small"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i> <span>Tweet</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Falgorithms%2F2016%2F11%2F20%2FPrime-Number-Factorization.html" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" class="btn btn--linkedin btn--small"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> <span>LinkedIn</span></a>
+  <a href="https://reddit.com/submit?title=Factorizing+a+Number&url=http%3A%2F%2Flocalhost%3A4000%2Falgorithms%2F2016%2F11%2F20%2FPrime-Number-Factorization.html" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" class="btn btn--reddit btn--small"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i> <span>Reddit</span></a>
+</div>
+
+        
+
+        
+          
+
+        
+
+        <nav class="page-pagination" role="navigation">
+  
+    <a class="page-previous" href="/algorithms/2016/09/18/Kadane's-Algorithm.html">
+      <h4 class="page-pagination-label">Previous</h4>
+      <span class="page-pagination-title">
+        <i class="fas fa-arrow-left"></i> Kadane’s Algorithm
+
+      </span>
+    </a>
+  
+
+  
+    <a class="page-next" href="/algorithms/2017/02/01/counting-sort.html">
+      <h4 class="page-pagination-label">Next</h4>
+      <span class="page-pagination-title">
+        Counting Sort
+ <i class="fas fa-arrow-right"></i>
+      </span>
+    </a>
+  
+</nav>
+
+      </div>
+    </div>
+  </article>
+</main>
+
+
+    <footer id="footer" class="site-footer">
+  <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+<div class="social-icons"><a class="social-icon" href="https://github.com/bedirt"><i class="fab fa-github-square fa-2x" title="GitHub"></i></a><a class="social-icon" href="https://www.linkedin.com/in/bedirtapkan/"><i class="fab fa-linkedin fa-2x" title="LinkedIn"></i></a></div><div class="copyright">
+    
+      <p>&copy; 2020 Bedir Tapkan. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/mmistakes/so-simple-theme" rel="nofollow">So Simple</a>.</p>
+    
+  </div>
+</footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://use.fontawesome.com/releases/v5.0.12/js/all.js"></script>
+
+
+<!-- MathJax -->
+
+<script>
+// http://docs.mathjax.org/en/latest/upgrading/v2.html
+MathJax = {
+  tex: {
+      tags: "ams"    // eq numbering options: none, ams, all
+  },
+  options: {
+    renderActions: {
+      // for mathjax 3, handle <script "math/tex"> blocks inserted by kramdown
+      find: [10, function (doc) {
+        for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+          const display = !!node.type.match(/; *mode=display/);
+          const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+          const text = document.createTextNode('');
+          node.parentNode.replaceChild(text, node);
+          math.start = {node: text, delim: '', n: 0};
+          math.end = {node: text, delim: '', n: 0};
+          doc.math.push(math);
+        }
+      }, '']
+    }
+  }
+}
+</script>
+
+<script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  </body>
+
+</html>

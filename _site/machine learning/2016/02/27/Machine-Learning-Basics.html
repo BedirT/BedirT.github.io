@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<!--
+    So Simple Jekyll Theme 3.2.0
+    Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+    Free for personal and commercial use under the MIT license
+    https://github.com/mmistakes/so-simple-theme/blob/master/LICENSE
+-->
+<html lang="en-US" class="no-js">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  
+
+  
+    
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Machine Learning Basics | Bedir Tapkan</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Machine Learning Basics" />
+<meta name="author" content="M Bedir Tapkan" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Reaaally introductory post for Machine Learning basics. What is Supervised and Unsupervised learning?" />
+<meta property="og:description" content="Reaaally introductory post for Machine Learning basics. What is Supervised and Unsupervised learning?" />
+<link rel="canonical" href="http://localhost:4000/machine%20learning/2016/02/27/Machine-Learning-Basics.html" />
+<meta property="og:url" content="http://localhost:4000/machine%20learning/2016/02/27/Machine-Learning-Basics.html" />
+<meta property="og:site_name" content="Bedir Tapkan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-02-27T18:41:00-07:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Machine Learning Basics" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:creator" content="@M Bedir Tapkan" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","author":{"@type":"Person","name":"M Bedir Tapkan"},"url":"http://localhost:4000/machine%20learning/2016/02/27/Machine-Learning-Basics.html","headline":"Machine Learning Basics","dateModified":"2016-02-27T18:41:00-07:00","datePublished":"2016-02-27T18:41:00-07:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/machine%20learning/2016/02/27/Machine-Learning-Basics.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/img/logo.png"},"name":"M Bedir Tapkan"},"description":"Reaaally introductory post for Machine Learning basics. What is Supervised and Unsupervised learning?","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+  <script>
+    /* Cut the mustard */
+    if ( 'querySelector' in document && 'addEventListener' in window ) {
+      document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + 'js';
+    }
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/skins/default.css">
+  
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,700,700i|Lora:400,400i,700,700i">
+  <link rel="alternate" type="application/atom+xml" title="Bedir Tapkan" href="/atom.xml">
+<!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+</head>
+
+
+  <body class="layout--post  machine-learning-basics">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#primary-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+  <div class="navigation-wrapper">
+    <a href="#menu-toggle" id="menu-toggle">Menu</a>
+    <nav id="primary-nav" class="site-nav animated drop">
+      <ul><li><a href="/posts/">Posts</a></li><li><a href="/categories/">Categories</a></li><li><a href="/tags/">Tags</a></li><li><a href="/search/">Search</a></li></ul>
+    </nav>
+  </div><!-- /.navigation-wrapper -->
+
+
+    <header class="masthead">
+  <div class="wrap">
+    
+      <a href="/" class="site-logo" rel="home" title="Bedir Tapkan">
+        <img src="/img/logo.png" class="site-logo-img animated fadeInDown" alt="Bedir Tapkan">
+      </a>
+    
+    
+    
+      
+        <div class="site-title animated fadeIn"><a href="/">Bedir Tapkan</a></div>
+      
+      <p class="site-description animated fadeIn" itemprop="description">Nothing fancy, a simple blog from a simple RL student</p>
+    
+  </div>
+</header><!-- /.masthead -->
+
+
+    <main id="main" class="main-content" aria-label="Content">
+  <article class="h-entry">
+    
+
+    <div class="page-wrapper">
+      <header class="page-header">
+        
+        
+          <h1 id="page-title" class="page-title p-name">Machine Learning Basics
+</h1>
+        
+      </header>
+
+      <div class="page-sidebar">
+        <div class="page-author h-card p-author"><img src="/img/profile.png" class="author-avatar u-photo" alt="M Bedir Tapkan"><div class="author-info"><div class="author-name">
+        <span class="p-name">M Bedir Tapkan</span>
+      </div><ul class="author-links"><li class="author-link">
+            <a class="u-url" rel="me" href="https://github.com/bedirt"><i class="fab fa-github-square fa-lg" title="GitHub"></i></a>
+          </li><li class="author-link">
+            <a class="u-url" rel="me" href="https://www.linkedin.com/in/bedirtapkan/"><i class="fab fa-linkedin fa-lg" title="LinkedIn"></i></a>
+          </li></ul>
+
+<span class="read-time">2 min read</span>
+
+    <time class="page-date dt-published" datetime="2016-02-27T18:41:00-07:00"><a class="u-url" href="">February 27, 2016</a>
+</time>
+
+  </div>
+</div>
+
+        
+  <h3 class="page-taxonomies-title">Categories</h3>
+  
+  <ul class="page-taxonomies"><li class="page-taxonomy"><a class="p-category" href="/categories/#machine-learning" title="Pages filed under Machine Learning">Machine Learning</a></li>
+  </ul>
+
+
+        
+
+      </div>
+
+      <div class="page-content">
+        <div class="e-content">
+          <p>Reaaally introductory post for Machine Learning basics. What is Supervised and Unsupervised learning?</p>
+
+<!--more-->
+
+<h2 id="supervised-learning">Supervised Learning</h2>
+
+<p><strong>Supervised learning</strong> is the most common machine learning problem. In Supervised Learning we already know what the correct output should be like.</p>
+
+<p>There are two categories for supervised learning, first one is <strong>“regression problem”</strong> and the second one is <strong>“classification problem”</strong>. I will explain both with examples.</p>
+
+<h2 id="regression-problems">Regression Problems</h2>
+
+<p>In regression we have an output that is continous and we are trying to predict what will be the correct answer/output/label for our input. Lets see an example to understand the concept better.</p>
+
+<h3 id="examples">Examples:</h3>
+
+<p>Let’s say we have a friend who has a chocalate company. He has a lot of money and he wants to make his product sell as many as Snickers. OK. But his chocalates are not famous as Snickers. Now , what he should do is, take a look at the competitor. There is a chart which has two dimensions. One is the price. Another is the popularity. Now that since we have continous output for the prices. We will predict the one that we are looking for. (I will just give the popularities according to myself.)</p>
+
+<p><img src="/img/blogImages/nn/graphs1.png" /></p>
+
+<p>Now, looking at this output. What should we do is, putting a straight or polinomial line to the outputs.</p>
+
+<p><img src="/img/blogImages/nn/graphs2.png" /></p>
+
+<p><img src="/img/blogImages/nn/graphs3.png" /></p>
+
+<p>Then we will have our line that will help us to predict the price. According to the surveys, our chocalates have 8 point for the popularity. So what will be the best price according to the survey and the industry…</p>
+
+<p><img src="/img/blogImages/nn/graphs4.png" /></p>
+
+<p>It seems something like 70¢ …</p>
+
+<p>This is the regression problem …</p>
+
+<h2 id="classification-problems">Classification Problems</h2>
+
+<p>In classification, the simplest one, binary classification, we have two options, either true or false. We also can say that we will predict the result in a binary map. Let’s check an example.</p>
+
+<h3 id="examples-1">Examples:</h3>
+
+<p>Let’s give an absurd example so that it will be more permament. So we have a friend who just ate 5 kilos of Nutella and he is 24 years old. We want to predict if he will get sick or not. And we have a dataset that have people’s ages that ate 5 kilos of Nutella and got the sick or not !!</p>
+
+<p><img src="/img/blogImages/nn/graphs5.png" /></p>
+
+<p>So according to this graph our friend will get sick or not. It is a binary example. There is just two probabalities. This is a classification problem. Let’s see the expected result …</p>
+
+<p><img src="/img/blogImages/nn/graphs6.png" /></p>
+
+<p>(He will probably get sick, according to our prediction.)</p>
+
+<h2 id="unsupervised-learning">Unsupervised Learning</h2>
+
+<p>The <strong>unsupervised learning</strong> is the second most common machine learning problem. In unsupervised learning we don’t know the result for each input. We will obtain a structure form the data. We do not know what are the exact effects of our inputs. We will use <strong>clustering</strong> for this.</p>
+
+<h2 id="clustering-problem">Clustering Problem</h2>
+
+<p>We basically will seperate the data according to variables.</p>
+
+<p><img src="/img/blogImages/nn/graphs7.png" /></p>
+
+<p>Let’s say you got hundred different composition classes’ final essays. They all have different topics. What clustering do is, classifying all the essays according to their topics. So that if we use clustering, all these classes’ articles will be separated. This is just one variable (topic). If you want, you can add more variables to make the groups more specific. In this case we can add words count for example.</p>
+
+
+        </div>
+
+        
+          <div class="page-share">
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fmachine%2520learning%2F2016%2F02%2F27%2FMachine-Learning-Basics.html" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" class="btn btn--facebook btn--small"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i> <span>Share</span></a>
+  <a href="https://twitter.com/intent/tweet?text=Machine+Learning+Basics%20http%3A%2F%2Flocalhost%3A4000%2Fmachine%2520learning%2F2016%2F02%2F27%2FMachine-Learning-Basics.html" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" class="btn btn--twitter btn--small"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i> <span>Tweet</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fmachine%2520learning%2F2016%2F02%2F27%2FMachine-Learning-Basics.html" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" class="btn btn--linkedin btn--small"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> <span>LinkedIn</span></a>
+  <a href="https://reddit.com/submit?title=Machine+Learning+Basics&url=http%3A%2F%2Flocalhost%3A4000%2Fmachine%2520learning%2F2016%2F02%2F27%2FMachine-Learning-Basics.html" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" class="btn btn--reddit btn--small"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i> <span>Reddit</span></a>
+</div>
+
+        
+
+        
+          
+
+        
+
+        <nav class="page-pagination" role="navigation">
+  
+
+  
+    <a class="page-next" href="/algorithms/2016/09/18/Kadane's-Algorithm.html">
+      <h4 class="page-pagination-label">Next</h4>
+      <span class="page-pagination-title">
+        Kadane’s Algorithm
+ <i class="fas fa-arrow-right"></i>
+      </span>
+    </a>
+  
+</nav>
+
+      </div>
+    </div>
+  </article>
+</main>
+
+
+    <footer id="footer" class="site-footer">
+  <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+<div class="social-icons"><a class="social-icon" href="https://github.com/bedirt"><i class="fab fa-github-square fa-2x" title="GitHub"></i></a><a class="social-icon" href="https://www.linkedin.com/in/bedirtapkan/"><i class="fab fa-linkedin fa-2x" title="LinkedIn"></i></a></div><div class="copyright">
+    
+      <p>&copy; 2020 Bedir Tapkan. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/mmistakes/so-simple-theme" rel="nofollow">So Simple</a>.</p>
+    
+  </div>
+</footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://use.fontawesome.com/releases/v5.0.12/js/all.js"></script>
+
+
+<!-- MathJax -->
+
+<script>
+// http://docs.mathjax.org/en/latest/upgrading/v2.html
+MathJax = {
+  tex: {
+      tags: "ams"    // eq numbering options: none, ams, all
+  },
+  options: {
+    renderActions: {
+      // for mathjax 3, handle <script "math/tex"> blocks inserted by kramdown
+      find: [10, function (doc) {
+        for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+          const display = !!node.type.match(/; *mode=display/);
+          const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+          const text = document.createTextNode('');
+          node.parentNode.replaceChild(text, node);
+          math.start = {node: text, delim: '', n: 0};
+          math.end = {node: text, delim: '', n: 0};
+          doc.math.push(math);
+        }
+      }, '']
+    }
+  }
+}
+</script>
+
+<script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  </body>
+
+</html>
