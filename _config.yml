@@ -6,7 +6,7 @@ locale:           en-US
 title:            "Bedir Tapkan"
 description:      'Nothing fancy, a simple blog from a simple RL student'
 
-url:              "https://BedirT.github.io"
+url:              "https://bedirtapkan.com"
 logo:             "/img/logo.png"
 date_format:      "%B %-d, %Y"
 read_time:        true
